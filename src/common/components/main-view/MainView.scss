@@ -1,0 +1,11 @@
+.head-navbar {
+    nav {
+        background-color: #643cac !important;
+    }
+
+    a {
+        &.navbar-brand, &.nav-link {
+            color: white !important;
+        }
+    }
+}
