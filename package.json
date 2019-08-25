@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.10.2",
     "@types/chart.js": "^2.8.3",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.2",
@@ -47,7 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.2"
-  }
+  "devDependencies": {}
 }
