@@ -60,7 +60,7 @@ const options: ChartOptions = {
         yAxes: [{
             ticks: {
                 beginAtZero: true,
-                max: 180,
+                max: !isMobile() ? undefined : 180,
                 min: 0,
             },
             scaleLabel: {
