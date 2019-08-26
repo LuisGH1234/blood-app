@@ -13,11 +13,11 @@ export default function MainLayout(props: IProps) {
 
     return (
         <div className="App">
-            <header className="head-navbar">
+            {/* <header className="head-navbar">
                 <Navbar light expand="md">
                     <NavbarBrand href="/">{props.title}</NavbarBrand>
                 </Navbar>
-            </header>
+            </header> */}
             <div className="container">
                 {props.children}
             </div>

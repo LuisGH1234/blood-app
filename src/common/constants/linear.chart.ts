@@ -1,5 +1,6 @@
 import { ChartData, ChartOptions } from "chart.js";
 import { isMobile } from "../helpers/detector";
+import 'chartjs-plugin-annotation';
 
 const data: ChartData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -56,12 +57,36 @@ const data: ChartData = {
 const options: ChartOptions = {
     responsive: true,
     maintainAspectRatio: true,
+    
+    // tooltips: {
+    //     callbacks: {
+            
+    //     }
+    // },
+//     annotation: {
+//         annotations: [{
+//             drawTime: 'afterDatasetsDraw',
+//             borderColor: 'blue',
+//             borderDash: [5, 15],
+//             borderWidth: 2,
+//             mode: 'horizontal',
+//             type: 'line',
+//             value: 90,
+//             scaleID: 'x-axis-0',
+//       }]
+//    } ,
     scales: {
         yAxes: [{
             ticks: {
                 beginAtZero: true,
                 max: !isMobile() ? undefined : 180,
                 min: 0,
+                stepSize: 20,
+                // values: []
+                // callback: function(value, index, values) {
+                //     if (value) console.log(value);
+                //     return value;
+                // }
             },
             scaleLabel: {
                 display: true,
@@ -69,6 +94,10 @@ const options: ChartOptions = {
                 fontSize: isMobile() ? 11 : 30,
                 padding: isMobile() ? 0 : undefined,
                 lineHeight: isMobile() ? '70%' : undefined,
+            }, 
+            gridLines: {
+                borderDash: [],
+                color: ['#bdbdbd', '#d50000', '#bdbdbd', '#bdbdbd', '#d50000', '#bdbdbd', '#bdbdbd', '#bdbdbd'],
             }
         }],
     },
@@ -94,6 +123,10 @@ function dtPointerColors(data: any[]) {
         else pointBackgroundColor.push('#FFFFFF');
     });
     return pointBackgroundColor;
+}
+
+function setStDottedLine() {
+
 }
 
 data.datasets![0].pointBackgroundColor = dtPointerColors(data.datasets![0].data!);
