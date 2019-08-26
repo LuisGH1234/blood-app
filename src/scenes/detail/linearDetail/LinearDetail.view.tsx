@@ -4,36 +4,17 @@ import { Line } from 'react-chartjs-2';
 import { Button, Card, CardBody, CardTitle, Row, Col, InputGroup, InputGroupAddon } from 'reactstrap';
 import { LinearExample } from '../../../common/constants';
 import DatePicker from 'react-datepicker';
+import { isMobile } from '../../../common/helpers/detector';
 
 interface IProps extends RouteComponentProps {
     children: React.ReactNode;
 }
-const RED = '#d50000';
+
 const { data, options } = LinearExample;
-
-function stPointerColors(data: any[]) {
-    const pointBackgroundColor: string[] = [];
-    data.forEach((x: any) => {
-        if (x >= 140) pointBackgroundColor.push(RED);
-        else pointBackgroundColor.push('#212121');
-    });
-    return pointBackgroundColor;
-}
-
-function dtPointerColors(data: any[]) {
-    const pointBackgroundColor: string[] = [];
-    data.forEach((x: any) => {
-        if (x >= 90) pointBackgroundColor.push(RED);
-        else pointBackgroundColor.push('#FFFFFF');
-    });
-    return pointBackgroundColor;
-}
-
+const height = isMobile() ? 300 : undefined;
 const LinearDetail: FC<IProps> = props => {
     const [date, setDate] = useState(new Date());
-    data.datasets![0].pointBackgroundColor = dtPointerColors(data.datasets![0].data!);
-    data.datasets![1].pointBackgroundColor = stPointerColors(data.datasets![1].data!);
-
+    console.log(navigator.userAgent)
     return (
         <div>
             <Card>
@@ -61,7 +42,7 @@ const LinearDetail: FC<IProps> = props => {
                         </Col>
                     </Row>
 
-                    <Line data={data} options={options} />
+                    <Line height={height} data={data} options={options} />
                 </CardBody>
             </Card>
             <hr />

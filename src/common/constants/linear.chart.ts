@@ -1,4 +1,5 @@
 import { ChartData, ChartOptions } from "chart.js";
+import { isMobile } from "../helpers/detector";
 
 const data: ChartData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -53,6 +54,8 @@ const data: ChartData = {
 };
 
 const options: ChartOptions = {
+    responsive: true,
+    maintainAspectRatio: true,
     scales: {
         yAxes: [{
             ticks: {
@@ -63,12 +66,37 @@ const options: ChartOptions = {
             scaleLabel: {
                 display: true,
                 labelString: 'Moola',
-                fontSize: 20
+                fontSize: isMobile() ? 11 : 30,
+                padding: isMobile() ? 0 : undefined,
+                lineHeight: isMobile() ? '70%' : undefined,
             }
         }],
     },
     events: ["click"],
     onClick: (e: any, arr: any[]) => console.log(":v", e, arr)
 };
+
+const RED = '#d50000';
+
+function stPointerColors(data: any[]) {
+    const pointBackgroundColor: string[] = [];
+    data.forEach((x: any) => {
+        if (x >= 140) pointBackgroundColor.push(RED);
+        else pointBackgroundColor.push('#212121');
+    });
+    return pointBackgroundColor;
+}
+
+function dtPointerColors(data: any[]) {
+    const pointBackgroundColor: string[] = [];
+    data.forEach((x: any) => {
+        if (x >= 90) pointBackgroundColor.push(RED);
+        else pointBackgroundColor.push('#FFFFFF');
+    });
+    return pointBackgroundColor;
+}
+
+data.datasets![0].pointBackgroundColor = dtPointerColors(data.datasets![0].data!);
+data.datasets![1].pointBackgroundColor = stPointerColors(data.datasets![1].data!);
 
 export default { data, options };

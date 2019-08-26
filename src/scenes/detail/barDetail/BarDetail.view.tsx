@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Bar } from 'react-chartjs-2';
-import { Button } from 'reactstrap';
+import { Button, CardBody, Card } from 'reactstrap';
 import { BarExample } from '../../../common/constants';
 
 interface IProps extends RouteComponentProps {
@@ -12,7 +12,11 @@ const { data, options } = BarExample;
 const BarDetail: FC<IProps> = props => {
     return (
         <div>
-            <Bar data={data} options={options} />
+            <Card>
+                <CardBody>
+                    <Bar data={data} options={options} />
+                </CardBody>
+            </Card>
             <hr />
             <Button onClick={() => props.history.push('/')}>Regresar</Button>
         </div>
