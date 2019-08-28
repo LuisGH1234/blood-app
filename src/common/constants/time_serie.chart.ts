@@ -10,7 +10,7 @@ function randomBar(date: moment.Moment, lastClose: number) {
     var close = randomNumber(Number(open) * 0.95, Number(open) * 1.05).toFixed(2);
     return {
         t: date.valueOf(),
-        y: close
+        y: close,
     };
 }
 
@@ -26,50 +26,56 @@ while (data.length < 60) {
 
 var dataC: ChartData = {
     // labels: [],
-    datasets: [{
-        label: 'CHRT - Chart.js Corporation',
-        backgroundColor: 'red',
-        borderColor: 'red',
-        data: data,
-        type: 'line',
-        pointRadius: 0,
-        fill: false,
-        lineTension: 0,
-        borderWidth: 2
-    }]
+    datasets: [
+        {
+            label: 'Ritmo cardiaco',
+            backgroundColor: 'red',
+            borderColor: 'red',
+            data: data,
+            type: 'line',
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0,
+            borderWidth: 2,
+        },
+    ],
 };
 
 const options: ChartOptions = {
     scales: {
-        xAxes: [{
-            type: 'time',
-            distribution: 'series',
-            ticks: {
-                source: 'data',
-                autoSkip: true
-            }
-        }],
-        yAxes: [{
-            scaleLabel: {
-                display: false,
-                labelString: 'Closing price ($)'
-            }
-        }]
+        xAxes: [
+            {
+                type: 'time',
+                distribution: 'series',
+                ticks: {
+                    source: 'data',
+                    autoSkip: true,
+                },
+            },
+        ],
+        yAxes: [
+            {
+                scaleLabel: {
+                    display: false,
+                    labelString: 'Closing price ($)',
+                },
+            },
+        ],
     },
     tooltips: {
         intersect: false,
         mode: 'index',
         callbacks: {
-            label: function (tooltipItem, myData) {
+            label: function(tooltipItem, myData) {
                 var label = myData!!.datasets!![tooltipItem!!.datasetIndex!!].label || '';
                 if (label) {
                     label += ': ';
                 }
                 label += parseFloat(tooltipItem!!.value!!).toFixed(2);
                 return label;
-            }
-        }
-    }
-}
+            },
+        },
+    },
+};
 
 export default { options, dataC };
