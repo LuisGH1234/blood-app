@@ -19,7 +19,7 @@ const LinearDetail: FC<IProps> = props => {
         <div>
             <Card>
                 <CardBody>
-                    <CardTitle>Grafico de Lineas</CardTitle>
+                    <CardTitle>Line Chart Detail View</CardTitle>
                     <Row className="mt-2 mb-2">
                         <Col md={{ size: 4, offset: 4 }}>
                             <InputGroup>

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Navbar, NavbarBrand } from "reactstrap";
 import "./MainView.scss";
+import { isMobile } from "../../helpers/detector";
 
 interface IProps {
     title: string;
@@ -13,11 +14,11 @@ export default function MainLayout(props: IProps) {
 
     return (
         <div className="App">
-            {/* <header className="head-navbar">
+            {!isMobile() && <header className="head-navbar">
                 <Navbar light expand="md">
                     <NavbarBrand href="/">{props.title}</NavbarBrand>
                 </Navbar>
-            </header> */}
+            </header>}
             <div className="container">
                 {props.children}
             </div>

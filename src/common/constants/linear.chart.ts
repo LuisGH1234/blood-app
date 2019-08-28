@@ -1,6 +1,4 @@
 import { ChartData, ChartOptions } from "chart.js";
-import { isMobile } from "../helpers/detector";
-import 'chartjs-plugin-annotation';
 
 const data: ChartData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -50,6 +48,30 @@ const data: ChartData = {
             // notice the gap in the data and the spanGaps: false
             data: [10, 20, 140, 119, 64, 78, 156, undefined, 70, 40, 160, 89],
             spanGaps: false,
+        },
+        {
+            label: 'none',
+            fill: false,
+            lineTension: 0.1,
+            borderWidth: 1,
+            backgroundColor: "#d50000",
+            borderColor: "#d50000",
+            // borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "#d50000",
+            pointBackgroundColor: "#d50000",
+            pointBorderWidth: 0,
+            pointHoverRadius: 0,
+            pointHoverBackgroundColor: "brown",
+            pointHoverBorderColor: "yellow",
+            pointHoverBorderWidth: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            // notice the gap in the data and the spanGaps: false
+            data: [90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90],
+            spanGaps: false,
         }
     ]
 };
@@ -57,47 +79,47 @@ const data: ChartData = {
 const options: ChartOptions = {
     responsive: true,
     maintainAspectRatio: true,
-    
-    // tooltips: {
-    //     callbacks: {
-            
-    //     }
-    // },
-//     annotation: {
-//         annotations: [{
-//             drawTime: 'afterDatasetsDraw',
-//             borderColor: 'blue',
-//             borderDash: [5, 15],
-//             borderWidth: 2,
-//             mode: 'horizontal',
-//             type: 'line',
-//             value: 90,
-//             scaleID: 'x-axis-0',
-//       }]
-//    } ,
+
+    legend: {
+        // display: false
+        labels: {
+            filter: (item, chart) => {
+                if (item.text)
+                    return !item.text.includes('none');
+                return item;
+            }
+        }
+    },
     scales: {
         yAxes: [{
+            // beforeBuildTicks: (scale: any) => {
+            //     console.log(scale);
+            //     if (scale._ticks)
+            //         scale._ticks[0].major = true;
+            // },
             ticks: {
                 beginAtZero: true,
-                max: !isMobile() ? undefined : 180,
+                max: 180,
                 min: 0,
                 stepSize: 20,
                 // values: []
-                // callback: function(value, index, values) {
-                //     if (value) console.log(value);
-                //     return value;
+                // callback: function (value, index, values) {
+                //     // if (value) console.log(value, values);
+                //     return value == 120 ? null : value;
                 // }
             },
-            scaleLabel: {
-                display: true,
-                labelString: 'Moola',
-                fontSize: isMobile() ? 11 : 30,
-                padding: isMobile() ? 0 : undefined,
-                lineHeight: isMobile() ? '70%' : undefined,
-            }, 
+            // scaleLabel: {
+            //     display: true,
+            //     labelString: 'Moola',
+            //     fontSize: isMobile() ? 11 : 30,
+            //     padding: isMobile() ? 0 : undefined,
+            //     lineHeight: isMobile() ? '70%' : undefined,
+            // },
             gridLines: {
-                borderDash: [],
-                color: ['#bdbdbd', '#d50000', '#bdbdbd', '#bdbdbd', '#d50000', '#bdbdbd', '#bdbdbd', '#bdbdbd'],
+                zeroLineWidth: 1,
+                // borderDash: [6, 6],
+                lineWidth: 1,
+                color: ['#bdbdbd', '#bdbdbd', '#d50000', '#bdbdbd', '#bdbdbd', '#bdbdbd', '#bdbdbd', '#bdbdbd', '#bdbdbd'],
             }
         }],
     },
@@ -123,10 +145,6 @@ function dtPointerColors(data: any[]) {
         else pointBackgroundColor.push('#FFFFFF');
     });
     return pointBackgroundColor;
-}
-
-function setStDottedLine() {
-
 }
 
 data.datasets![0].pointBackgroundColor = dtPointerColors(data.datasets![0].data!);
