@@ -29,16 +29,15 @@ function divideFromStr(value: string) {
     return Number(values[0]) / Number(values[1]);
 }
 
-function getData(res: IApiResponse): ChartPoint[] {
+function getData(res: IApiResponse = {}): ChartPoint[] {
     const { Data = [] } = res;
     return Data.map((x, i, d) => {
         const { DomainObject: dm } = x;
-        const y = i === 0 ? dm!!.Valor : d[i - 1].DomainObject!!.Valor
+        const y = i === 0 ? dm!!.Valor : d[i - 1].DomainObject!!.Valor;
         return {
-            t: moment(dm!!.FechaRegistro).valueOf(),
-            y: divideFromStr(y!!)
-        }
-
+            t: moment(dm!!.FechaRegistro, 'hh:mm:ss').valueOf(),
+            y: divideFromStr(y!!),
+        };
     });
 }
 
@@ -87,6 +86,15 @@ const options: ChartOptions = {
                     source: 'data',
                     autoSkip: true,
                 },
+                time: {
+                    parser: 'HH:mm:ss',
+                    tooltipFormat: 'll HH:mm',
+                    unit: 'hour',
+                    unitStepSize: 1,
+                    displayFormats: {
+                        hour: 'HH:mm:ss',
+                    },
+                },
             },
         ],
         yAxes: [
@@ -102,7 +110,7 @@ const options: ChartOptions = {
         intersect: false,
         mode: 'index',
         callbacks: {
-            label: function (tooltipItem, myData) {
+            label: function(tooltipItem, myData) {
                 var label = myData!!.datasets!![tooltipItem!!.datasetIndex!!].label || '';
                 if (label) {
                     label += ': ';
@@ -114,4 +122,4 @@ const options: ChartOptions = {
     },
 };
 
-export default { options, dataC };
+export default { options, dataC, dataCB };

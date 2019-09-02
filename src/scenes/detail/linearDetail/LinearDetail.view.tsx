@@ -27,7 +27,6 @@ function renderDatePicker(date: any, setDate: (value: any) => void) {
             <DatePicker
                 className="date form-control"
                 selected={date}
-                // readOnly
                 dateFormat="dd/MM/yyyy"
                 onChange={(value, e) => {
                     setDate(value!);
@@ -50,7 +49,6 @@ const LinearDetail: FC<IProps> = props => {
     const [dateStart, setDateStart] = useState(new Date());
     const [dateEnd, setDateEnd] = useState(new Date());
 
-    console.log(navigator.userAgent);
     return (
         <div>
             <Card>
