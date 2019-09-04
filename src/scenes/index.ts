@@ -8,4 +8,5 @@ export { default as LinearDetail } from './detail/linearDetail';
 
 //#region PAGE ERRORS
 export { default as Page404 } from './page404';
+export { default as Page422 } from './page422';
 //#endregion

@@ -3,26 +3,25 @@ import './Main.scss';
 import { Row, Col, Card, CardBody, CardTitle, Button } from 'reactstrap';
 import { Pie, Line, Bar } from 'react-chartjs-2';
 import { RouteComponentProps } from 'react-router-dom';
-import { LinearExample, PieExample } from '../../common/constants';
-import { isMobile } from '../../common/helpers/detector';
+import { PieExample } from '../../common/constants';
+import { isMobile, TimeSerie, parseQuery, LineHelper } from '../../common/helpers';
 import Axios from 'axios';
-import { IApiResponse } from '../../common/types';
-import { TimeSerie } from '../../common/helpers';
+import { IApiResponse, IQuery } from '../../common/types';
 
 interface IProps extends RouteComponentProps {}
 
-function goToDetail(props: IProps, detail: number) {
+function goToDetail(props: IProps, detail: number, query: IQuery) {
     let route = '/';
-
+    const { userId, type } = query;
     switch (detail) {
         case 1:
-            route = '/pie-details';
+            route = `/pie-details?userId=${userId}&type=${type}`;
             break;
         case 2:
-            route = '/linear-details';
+            route = `/linear-details?userId=${userId}&type=${type}`;
             break;
         case 3:
-            route = '/bar-details';
+            route = `/bar-details?userId=${userId}&type=${type}`;
             break;
     }
     props.history.push(route);
@@ -33,19 +32,27 @@ const height = isMobile() ? 200 : undefined;
 const App: FC<IProps> = props => {
     const [res, setRes] = useState<IApiResponse>({});
     let timeInterval: NodeJS.Timeout;
+    const query = parseQuery(props.location.search) as IQuery;
 
     useEffect(() => {
+        console.log('query:', query);
+        const { type, userId } = query;
+        if (!query.userId) return props.history.push('/error/422');
         try {
             timeInterval = setInterval(async () => {
-                const res = await Axios.get<IApiResponse>(`${baseUrl}?UsuarioID=3&CodigoID=1`);
+                const res = await Axios.get<IApiResponse>(
+                    `${baseUrl}?UsuarioID=${userId}&CodigoID=${type}`,
+                );
                 console.log(res.data);
                 setRes(res.data);
-            }, 5000);
+            }, 2000);
         } catch (e) {
             console.log(e);
         }
 
-        return () => clearInterval(timeInterval);
+        return () => {
+            if (timeInterval) return clearInterval(timeInterval);
+        };
     }, []);
 
     return (
@@ -61,7 +68,7 @@ const App: FC<IProps> = props => {
                                 options={PieExample.options}
                             />
                         </CardBody>
-                        <Button onClick={() => goToDetail(props, 1)}>Detalle</Button>
+                        <Button onClick={() => goToDetail(props, 1, query)}>Detalle</Button>
                     </Card>
                 </Col>
             </Row>
@@ -72,11 +79,11 @@ const App: FC<IProps> = props => {
                             <CardTitle>Line Chart Overview</CardTitle>
                             <Line
                                 height={height}
-                                data={LinearExample.data}
-                                options={LinearExample.options}
+                                data={LineHelper.data(res)}
+                                options={LineHelper.options}
                             />
                         </CardBody>
-                        <Button onClick={() => goToDetail(props, 2)}>Detalle</Button>
+                        <Button onClick={() => goToDetail(props, 2, query)}>Detalle</Button>
                     </Card>
                 </Col>
             </Row>
@@ -91,7 +98,7 @@ const App: FC<IProps> = props => {
                                 options={TimeSerie.options}
                             />
                         </CardBody>
-                        <Button onClick={() => goToDetail(props, 3)}>Detalle</Button>
+                        <Button onClick={() => goToDetail(props, 3, query)}>Detalle</Button>
                     </Card>
                 </Col>
             </Row>

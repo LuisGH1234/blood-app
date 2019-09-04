@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Line } from 'react-chartjs-2';
 import {
@@ -13,13 +13,15 @@ import {
 } from 'reactstrap';
 import { LinearExample } from '../../../common/constants';
 import DatePicker from 'react-datepicker';
-import { isMobile } from '../../../common/helpers/detector';
+import { isMobile, LineHelper, parseQuery } from '../../../common/helpers';
+import { IApiResponse, IQuery } from '../../../common/types';
+import Axios from 'axios';
 
 interface IProps extends RouteComponentProps {
     children: React.ReactNode;
 }
 
-const { data, options } = LinearExample;
+const baseUrl = 'https://api-upcbp.azurewebsites.net/api/Dashboard/GetDatosUsuarios';
 const height = isMobile() ? 300 : undefined;
 function renderDatePicker(date: any, setDate: (value: any) => void) {
     return (
@@ -48,6 +50,27 @@ function renderDatePicker(date: any, setDate: (value: any) => void) {
 const LinearDetail: FC<IProps> = props => {
     const [dateStart, setDateStart] = useState(new Date());
     const [dateEnd, setDateEnd] = useState(new Date());
+    const [res, setRes] = useState<IApiResponse>({});
+    let timeInterval: NodeJS.Timeout;
+    const query = parseQuery(props.location.search) as IQuery;
+
+    useEffect(() => {
+        const { userId, type } = query;
+        if (!query.userId) return props.history.push('/error/422');
+        try {
+            timeInterval = setInterval(async () => {
+                const res = await Axios.get<IApiResponse>(
+                    `${baseUrl}?UsuarioID=${userId}&CodigoID=${type}`,
+                );
+                console.log(res.data);
+                setRes(res.data);
+            }, 2000);
+        } catch (e) {
+            console.log(e);
+        }
+
+        return () => clearInterval(timeInterval);
+    }, []);
 
     return (
         <div>
@@ -63,11 +86,15 @@ const LinearDetail: FC<IProps> = props => {
                         </Col>
                     </Row>
 
-                    <Line height={height} data={data} options={options} />
+                    <Line
+                        height={height}
+                        data={LineHelper.data(res)}
+                        options={LineHelper.options}
+                    />
                 </CardBody>
             </Card>
             <hr />
-            <Button onClick={() => props.history.push('/')}>Regresar</Button>
+            <Button onClick={() => props.history.goBack()}>Regresar</Button>
         </div>
     );
 };

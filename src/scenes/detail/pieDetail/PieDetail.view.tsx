@@ -8,7 +8,7 @@ import { isMobile } from '../../../common/helpers/detector';
 interface IProps extends RouteComponentProps {
     children: React.ReactNode;
 }
-
+// tipo
 const { data, options } = PieExample;
 const height = isMobile() ? 200 : undefined;
 const PieDetail: FC<IProps> = props => {
@@ -21,9 +21,9 @@ const PieDetail: FC<IProps> = props => {
                 </CardBody>
             </Card>
             <hr />
-            <Button onClick={() => props.history.push('/')}>Regresar</Button>
+            <Button onClick={() => props.history.goBack()}>Regresar</Button>
         </div>
     );
-}
+};
 
 export default PieDetail;
