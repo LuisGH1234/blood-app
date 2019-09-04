@@ -58,13 +58,15 @@ const LinearDetail: FC<IProps> = props => {
         const { userId, type } = query;
         if (!query.userId) return props.history.push('/error/422');
         try {
-            timeInterval = setInterval(async () => {
+            const foo = async () => {
                 const res = await Axios.get<IApiResponse>(
                     `${baseUrl}?UsuarioID=${userId}&CodigoID=${type}`,
                 );
                 console.log(res.data);
                 setRes(res.data);
-            }, 2000);
+            };
+            foo();
+            timeInterval = setInterval(foo, 2000);
         } catch (e) {
             console.log(e);
         }
