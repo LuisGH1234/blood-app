@@ -39,7 +39,7 @@ function renderDatePicker(date: any, setDate: (value: any) => void) {
                 <Button
                     type="button"
                     color="primary"
-                    // onClick={() => this.filterProducts()}
+                // onClick={() => this.filterProducts()}
                 >
                     <i className="fa fa-search" />
                 </Button>
@@ -96,9 +96,25 @@ const LinearDetail: FC<IProps> = props => {
                 </CardBody>
             </Card>
             <hr />
+            <Button className="mr-2" onClick={() => pdf()}>PDF</Button>
             <Button onClick={() => props.history.goBack()}>Regresar</Button>
         </div>
     );
 };
 
 export default LinearDetail;
+
+function pdf(cb?: (buffer: any) => any) {
+    const url = 'http://localhost:3000/api/user-report';
+    const filename = `ficha_comercial`;
+    return Axios
+        .get(url, { method: 'get', responseType: 'blob' })
+        .then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${filename}.pdf`);
+            link.click();
+            window.URL.revokeObjectURL(url);
+        });
+}

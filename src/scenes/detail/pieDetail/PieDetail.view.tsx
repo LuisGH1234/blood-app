@@ -1,17 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Pie } from 'react-chartjs-2';
 import { Button, Card, CardBody, CardTitle } from 'reactstrap';
 import { PieExample } from '../../../common/constants';
 import { isMobile } from '../../../common/helpers/detector';
-import { MyDocument } from '../../../common/helpers';
-import ReactPDF, { PDFDownloadLink, pdf, BlobProvider } from '@react-pdf/renderer';
-import ReactDOM from 'react-dom';
-import { PDFViewer } from '@react-pdf/renderer';
+import Axios from 'axios';
 
 interface IProps extends RouteComponentProps {
     children: React.ReactNode;
 }
+
 // tipo
 const { data, options } = PieExample;
 const height = isMobile() ? 200 : undefined;
@@ -26,13 +24,6 @@ const PieDetail: FC<IProps> = props => {
             </Card>
             <hr />
             <Button onClick={() => props.history.goBack()}>Regresar</Button>
-            <div>
-                <PDFDownloadLink document={<MyDocument />} fileName="somename.pdf">
-                    {({ blob, url, loading, error }) =>
-                        loading ? <div>Loading document...</div> : <Button>Download now!</Button>
-                    }
-                </PDFDownloadLink>
-            </div>
         </div>
     );
 };

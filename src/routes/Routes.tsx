@@ -8,10 +8,10 @@ const Routes: FC = () => {
         <BrowserRouter>
             <MainLayout title="BloodApp">
                 <Switch>
-                    <Route exact path="/" component={MainPage} />
-
+                    {/* <Route exact path="/" component={MainPage} /> */}
+                    <Route exact path="/" component={LinearDetail} />
                     <Route exact path="/pie-details" component={PieDetail} />
-                    <Route exact path="/linear-details" component={LinearDetail} />
+                    {/* <Route exact path="/linear-details" component={LinearDetail} /> */}
                     <Route exact path="/bar-details" component={BarDetail} />
 
                     <Route exact path="/error/422" component={Page422} />
