@@ -220,7 +220,7 @@ export default class LineHelper {
             ],
             datasets: [
                 {
-                    label: 'Diastolica',
+                    label: 'Diastólica',
                     fill: false,
                     lineTension: 0.1,
                     backgroundColor: '#aeea00',
@@ -243,7 +243,7 @@ export default class LineHelper {
                     spanGaps: true,
                 },
                 {
-                    label: 'Siastolica',
+                    label: 'Sistólica',
                     fill: false,
                     lineTension: 0.1,
                     backgroundColor: '#00b0ff',

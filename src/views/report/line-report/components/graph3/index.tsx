@@ -17,15 +17,11 @@ interface IProps {
 const height = isMobile() ? 300 : undefined;
 const Graph3: FC<IProps> = ({ data = {} }) => {
     let lineData: Chart.ChartData;
-    let lineOptions: Chart.ChartOptions;
+    let lineOptions: Chart.ChartOptions = LineHelper.options;
     const notPressured = !data.Presiones || data.Presiones.length === 0;
     if (notPressured) {
         lineData = LinearExample.data;
-        lineOptions = LinearExample.options;
-    } else {
-        lineData = LineHelper.data2(data);
-        lineOptions = LineHelper.options;
-    }
+    } else lineData = LineHelper.data2(data);
 
     return (
         <Card>
