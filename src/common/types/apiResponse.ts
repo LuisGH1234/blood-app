@@ -23,3 +23,24 @@ export interface IApiResponse {
     Number?: number;
     Data?: IDataResponse[];
 }
+
+export interface IReportResponse {
+    Id?: number;
+    UsuarioId?: number;
+    OrganizacionId?: number;
+    NombreCompleto?: string;
+    Edad?: number;
+    Fecha?: string;
+    IMC?: string;
+    Peso?: string;
+    Altura?: string;
+    CriterioIMC?: string;
+    ClasificacionSistolica?: string;
+    ClasificacionDiastolica?: string;
+    ResultadoScore?: string;
+    Presiones?: IDomainObject[];
+    CodigoIdentificador?: any;
+    GuidDomain?: string;
+    Error?: string;
+    Eid?: any;
+}

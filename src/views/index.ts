@@ -10,3 +10,7 @@ export { default as LinearDetail } from './detail/linearDetail';
 export { default as Page404 } from './page404';
 export { default as Page422 } from './page422';
 //#endregion
+
+//#region REPORTS
+export { default as LineReport } from './report/line-report';
+//#endregion

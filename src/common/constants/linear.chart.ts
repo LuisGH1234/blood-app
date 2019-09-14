@@ -152,8 +152,8 @@ const options: ChartOptions = {
             },
         ],
     },
-    events: ['click'],
-    onClick: (e: any, arr: any[]) => console.log(':v', e, arr),
+    // events: ['click'],
+    // onClick: (e: any, arr: any[]) => console.log(':v', e, arr),
 };
 
 function stPointerColors(data: any[]) {

@@ -14,11 +14,11 @@ export default function MainLayout(props: IProps) {
 
     return (
         <div className="App">
-            {!isMobile() && <header className="head-navbar">
+            {/* {!isMobile() && <header className="head-navbar">
                 <Navbar light expand="md">
                     <NavbarBrand href="/">{props.title}</NavbarBrand>
                 </Navbar>
-            </header>}
+            </header>} */}
             <div className="container">
                 {props.children}
             </div>
