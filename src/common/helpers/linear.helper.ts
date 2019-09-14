@@ -1,5 +1,6 @@
 import { IApiResponse, IReportResponse } from '../types';
-import { ChartPoint, ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions } from 'chart.js';
+import moment from 'moment';
 
 const RED = '#d50000';
 export default class LineHelper {
@@ -55,6 +56,10 @@ export default class LineHelper {
             const result = x.Valor!!.split('/')[0];
             return Number(result);
         });
+    }
+    public static get2Labels(response: IReportResponse) {
+        const { Presiones = [] } = response;
+        return Presiones.map((x, i, a) => moment(x.FechaRegistro).format('HH:mm:ss'));
     }
 
     public static getDiastolica2(response: IReportResponse) {
@@ -204,20 +209,7 @@ export default class LineHelper {
         const sourceD = LineHelper.getDiastolica2(res);
         const sourceS = LineHelper.getSiastolica2(res);
         return {
-            labels: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
-            ],
+            labels: LineHelper.get2Labels(res),
             datasets: [
                 {
                     label: 'Diastólica',
