@@ -8,7 +8,7 @@ const data: ChartData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
         {
-            label: 'Diastolica',
+            label: 'Diastólica',
             fill: false,
             lineTension: 0.1,
             backgroundColor: '#aeea00',
@@ -31,7 +31,7 @@ const data: ChartData = {
             spanGaps: true,
         },
         {
-            label: 'Siastolica',
+            label: 'Sistólica',
             fill: false,
             lineTension: 0.1,
             backgroundColor: '#00b0ff',

@@ -13,4 +13,5 @@ export { default as Page422 } from './page422';
 
 //#region REPORTS
 export { default as LineReport } from './report/line-report';
+export { default as LineDetailReport } from './report/linearDetail';
 //#endregion
