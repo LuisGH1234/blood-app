@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import './MainView.scss';
 
 interface IProps {
@@ -13,6 +14,7 @@ export default function MainLayout(props: IProps) {
 
     return (
         <div className="App">
+            <ToastContainer />
             <div className="container">{props.children}</div>
         </div>
     );

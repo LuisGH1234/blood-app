@@ -9,13 +9,13 @@ interface IProps {
 }
 
 const height = isMobile() ? 250 : undefined;
-const Graph1: FC<IProps> = props => {
+const Graph1: FC<IProps> = ({ data = {} }) => {
     return (
         <Card>
             <CardBody style={{ color: '#0097A7' }}>
                 <HorizontalBar
                     height={height}
-                    data={StepsHelper.getExampleData}
+                    data={StepsHelper.getData(data)}
                     options={StepsHelper.options}
                 />
             </CardBody>

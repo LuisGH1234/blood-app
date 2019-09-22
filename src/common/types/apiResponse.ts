@@ -1,16 +1,16 @@
 export interface IDomainObject {
-    Valor?: string,
-    Descripcion?: string,
-    CodigoID?: number,
+    Valor?: string;
+    Descripcion?: string;
+    CodigoID?: number;
     /**@type Date */
-    FechaRegistro?: string,
-    Id?: number,
-    CodigoIdentificador?: number,
-    UsuarioId?: number,
-    OrganizacionId?: number,
+    FechaRegistro?: string;
+    Id?: number;
+    CodigoIdentificador?: number;
+    UsuarioId?: number;
+    OrganizacionId?: number;
     /**@value GUID */
-    GuidDomain?: string,
-    Error?: string,
+    GuidDomain?: string;
+    Error?: string;
     Eid?: number;
 }
 
@@ -43,4 +43,6 @@ export interface IReportResponse {
     GuidDomain?: string;
     Error?: string;
     Eid?: any;
+    PasosRealizados?: string;
+    PasosMetas?: string;
 }

@@ -4,6 +4,7 @@ import { Jumbotron, Button, Spinner } from 'reactstrap';
 import { parseQuery } from '../../../common/helpers';
 import { IReportResponse, IQuery } from '../../../common/types';
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 import { Graph1, Graph2, Graph3, Table1 } from './components';
 
 interface IProps extends RouteComponentProps {
@@ -20,9 +21,17 @@ const LinearDetail: FC<IProps> = props => {
     useEffect(() => {
         if (!query.userId) return props.history.push('/error/422');
         const foo = async () => {
-            const res = await Axios.get<IReportResponse>(`${baseUrl}?UsuarioID=${userId}`);
-            console.log(res.data);
-            setData(res.data);
+            try {
+                const res = await Axios.get<IReportResponse>(
+                    `${baseUrl}?UsuarioID=${userId}&CodigoID=${type}`,
+                );
+                if (res.status == 500) toast.error('Ocurrio un error con el servidor');
+                console.log(res.data);
+                setData(res.data);
+            } catch (ex) {
+                console.error(ex);
+                toast.error('Ocurrio un error con el servidor');
+            }
             setLoading(false);
         };
         foo();

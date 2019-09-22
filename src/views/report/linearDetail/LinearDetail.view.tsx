@@ -7,6 +7,7 @@ import { LinearExample } from '../../../common/constants';
 import { isMobile, LineHelper, parseQuery } from '../../../common/helpers';
 import { IQuery, IReportResponse } from '../../../common/types';
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface IProps extends RouteComponentProps {
     children: React.ReactNode;
@@ -22,29 +23,61 @@ const LinearDetail: FC<IProps> = props => {
     const { userId, type } = query;
     let [lineData, setLineData] = useState({});
 
+    // useEffect(() => {
+    //     console.log('query:', query);
+    //     if (!query.userId) return props.history.push('/error/422');
+    //     const foo = async () => {
+    //         try {
+    //             const { data, status } = await Axios.get<IReportResponse>(
+    //                 `${baseUrl}?UsuarioID=${userId}`,
+    //             );
+    //             if (status == 500) toast.error('Ocurrio un error con el servidor');
+    //             const notPressured = !data.Presiones || data.Presiones.length === 0;
+    //             console.log(notPressured);
+    //             if (notPressured) {
+    //                 setLineData(LinearExample.data);
+    //             } else setLineData(LineHelper.data2(data));
+    //             console.log(data);
+    //         } catch (ex) {
+    //             console.log(ex);
+    //             toast.error('Ocurrio un error con el servidor');
+    //             setLineData(LinearExample.data);
+    //             clearInterval(timeInterval);
+    //         }
+    //         setLoading(false);
+    //     };
+    //     foo();
+    //     timeInterval = setInterval(foo, 2000);
+
+    //     return () => {
+    //         console.log('aaaaa:', timeInterval);
+    //         return clearInterval(timeInterval);
+    //     };
+    // }, []);
+
     useEffect(() => {
         console.log('query:', query);
         if (!query.userId) return props.history.push('/error/422');
-        try {
-            const foo = async () => {
-                const { data } = await Axios.get<IReportResponse>(`${baseUrl}?UsuarioID=${userId}`);
+        const foo = async () => {
+            try {
+                const { data, status } = await Axios.get<IReportResponse>(
+                    `${baseUrl}?UsuarioID=${userId}`,
+                );
+                if (status == 500) toast.error('Ocurrio un error con el servidor');
                 const notPressured = !data.Presiones || data.Presiones.length === 0;
                 console.log(notPressured);
                 if (notPressured) {
                     setLineData(LinearExample.data);
                 } else setLineData(LineHelper.data2(data));
-                setLoading(false);
                 console.log(data);
-            };
-            foo();
-            timeInterval = setInterval(foo, 2000);
-        } catch (e) {
-            console.log(e);
-        }
-
-        return () => {
-            if (timeInterval) return clearInterval(timeInterval);
+            } catch (ex) {
+                console.log(ex);
+                toast.error('Ocurrio un error con el servidor');
+                setLineData(LinearExample.data);
+            }
+            setLoading(false);
         };
+        foo();
     }, []);
 
     return (

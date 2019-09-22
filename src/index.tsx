@@ -5,6 +5,7 @@ import Routes from './routes';
 import * as serviceWorker from './serviceWorker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 require('dotenv').config();
 

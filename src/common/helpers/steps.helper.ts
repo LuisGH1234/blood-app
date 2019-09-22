@@ -1,5 +1,6 @@
 // import { IApiResponse, IReportResponse } from '../types';
 import { ChartData, ChartOptions } from 'chart.js';
+import { IApiResponse, IReportResponse } from '../types';
 
 // const RED = '#d50000';
 export default class StepsHelper {
@@ -33,13 +34,31 @@ export default class StepsHelper {
             // labels: ['PASOS'],
             datasets: [
                 {
-                    label: 'PASOS QUE RECORRER',
-                    data: [12000, 3000],
+                    label: 'PASOS META',
+                    data: [12000],
                     backgroundColor: '#e65100',
                 },
                 {
-                    label: 'PASOS RECORRIDOS',
+                    label: 'PASOS REALIZADOS',
                     data: [3000],
+                    backgroundColor: '#1a237e',
+                },
+            ],
+        };
+    }
+
+    static getData(response: IReportResponse): ChartData {
+        const { PasosMetas = 0, PasosRealizados = 0 } = response;
+        return {
+            datasets: [
+                {
+                    label: 'PASOS META',
+                    data: [Number(PasosMetas)],
+                    backgroundColor: '#e65100',
+                },
+                {
+                    label: 'PASOS REALIZADOS',
+                    data: [Number(PasosRealizados)],
                     backgroundColor: '#1a237e',
                 },
             ],
