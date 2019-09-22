@@ -59,7 +59,10 @@ export default class LineHelper {
     }
     public static get2Labels(response: IReportResponse) {
         const { Presiones = [] } = response;
-        return Presiones.map((x, i, a) => moment(x.FechaRegistro).format('HH:mm:ss'));
+        return Presiones.map((x, i, a) => {
+            const time = (x.FechaRegistro || '').split(' ');
+            return time[1] || 'Invalid date'; // moment(time[1]).format('HH:mm');
+        });
     }
 
     public static getDiastolica2(response: IReportResponse) {
