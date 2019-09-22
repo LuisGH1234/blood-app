@@ -65,6 +65,7 @@ const LinearDetail: FC<IProps> = props => {
                     <label>
                         <strong>FECHA: {data!!.Fecha}</strong>
                     </label>
+                    <br />
                     <label>
                         <strong>
                             PESO: {data!!.Peso} - ALTURA: {data!!.Altura} CM
