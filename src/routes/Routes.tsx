@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { MainLayout } from '../common/components';
-import { Page404, MainPage, PieDetail, BarDetail, LinearDetail, Page422, LineReport, LineDetailReport } from '../views';
+import { Page404, PieDetail, BarDetail, Page422, LineReport, LineDetailReport } from '../views';
 
 const Routes: FC = () => {
     return (

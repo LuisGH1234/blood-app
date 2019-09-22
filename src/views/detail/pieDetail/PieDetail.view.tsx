@@ -1,10 +1,9 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Pie } from 'react-chartjs-2';
 import { Button, Card, CardBody, CardTitle } from 'reactstrap';
 import { PieExample } from '../../../common/constants';
 import { isMobile } from '../../../common/helpers/detector';
-import Axios from 'axios';
 
 interface IProps extends RouteComponentProps {
     children: React.ReactNode;

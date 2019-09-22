@@ -11,7 +11,6 @@ import {
     InputGroup,
     InputGroupAddon,
 } from 'reactstrap';
-import { LinearExample } from '../../../common/constants';
 import DatePicker from 'react-datepicker';
 import { isMobile, LineHelper, parseQuery } from '../../../common/helpers';
 import { IApiResponse, IQuery } from '../../../common/types';
@@ -39,7 +38,7 @@ function renderDatePicker(date: any, setDate: (value: any) => void) {
                 <Button
                     type="button"
                     color="primary"
-                // onClick={() => this.filterProducts()}
+                    // onClick={() => this.filterProducts()}
                 >
                     <i className="fa fa-search" />
                 </Button>
@@ -95,7 +94,11 @@ const LinearDetail: FC<IProps> = props => {
                 </CardBody>
             </Card>
             <hr />
-            <Button onClick={() => props.history.push(`/line-report?userId=${userId}&type=${type}`)}>Reporte</Button>
+            <Button
+                onClick={() => props.history.push(`/line-report?userId=${userId}&type=${type}`)}
+            >
+                Reporte
+            </Button>
         </div>
     );
 };

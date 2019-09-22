@@ -16,7 +16,7 @@ const baseUrl = 'https://api-upcbp.azurewebsites.net/api/Dashboard/GetDatosUsuar
 const height = isMobile() ? 200 : undefined;
 const BarDetail: FC<IProps> = props => {
     const [res, setRes] = useState<IApiResponse>({});
-    let timeInterval: NodeJS.Timeout;
+    const [timeInterval, setTimeInterval] = useState<NodeJS.Timeout>();
     const query = parseQuery(props.location.search) as IQuery;
 
     useEffect(() => {
@@ -31,12 +31,12 @@ const BarDetail: FC<IProps> = props => {
                 setRes(res.data);
             };
             foo();
-            timeInterval = setInterval(foo, 2000);
+            setTimeInterval(setInterval(foo, 2000));
         } catch (e) {
             console.log(e);
         }
 
-        return () => clearInterval(timeInterval);
+        return () => clearInterval(timeInterval!!);
     }, []);
 
     return (

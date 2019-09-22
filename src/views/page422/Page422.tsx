@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 
 interface IProps extends RouteComponentProps {}
 
