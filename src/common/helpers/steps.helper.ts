@@ -5,6 +5,11 @@ import { ChartData, ChartOptions } from 'chart.js';
 export default class StepsHelper {
     static get options(): ChartOptions {
         return {
+            tooltips: {
+                callbacks: {
+                    title: () => 'PASOS',
+                },
+            },
             scales: {
                 xAxes: [
                     {
@@ -14,7 +19,8 @@ export default class StepsHelper {
                 ],
                 yAxes: [
                     {
-                        ticks: { minRotation: 90 },
+                        scaleLabel: { padding: 0 },
+                        ticks: { minRotation: 90, padding: 0 },
                         stacked: false,
                     },
                 ],
@@ -24,7 +30,7 @@ export default class StepsHelper {
 
     static get getExampleData(): ChartData {
         return {
-            labels: ['PASOS'],
+            // labels: ['PASOS'],
             datasets: [
                 {
                     label: 'PASOS QUE RECORRER',

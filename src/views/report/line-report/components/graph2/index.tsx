@@ -2,17 +2,22 @@ import React, { FC } from 'react';
 import { Card, CardBody } from 'reactstrap';
 import { HorizontalBar } from 'react-chartjs-2';
 import { IReportResponse } from '../../../../../common/types';
-import { StepsHelper } from '../../../../../common/helpers';
+import { StepsHelper, isMobile } from '../../../../../common/helpers';
 
 interface IProps {
     data?: IReportResponse;
 }
 
+const height = isMobile() ? 250 : undefined;
 const Graph1: FC<IProps> = props => {
     return (
         <Card>
             <CardBody style={{ color: '#0097A7' }}>
-                <HorizontalBar data={StepsHelper.getExampleData} options={StepsHelper.options} />
+                <HorizontalBar
+                    height={height}
+                    data={StepsHelper.getExampleData}
+                    options={StepsHelper.options}
+                />
             </CardBody>
         </Card>
     );

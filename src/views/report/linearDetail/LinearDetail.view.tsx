@@ -54,8 +54,8 @@ const LinearDetail: FC<IProps> = props => {
                     color="primary"
                     style={{
                         position: 'absolute',
-                        left: 'calc(50% - 25px)',
-                        top: 'calc(50% - 25px)',
+                        left: 'calc(50% - 15px)',
+                        top: 'calc(50% - 15px)',
                         display: loading ? 'unset' : 'none',
                     }}
                 />
